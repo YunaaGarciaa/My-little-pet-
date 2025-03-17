@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Tigre Virtual</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Lienzo para el renderizado 3D -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Interfaz de usuario principal -->
+        <div id="ui">
+            <div id="tiger-info">
+                <h1 id="tiger-name">Tu Tigre</h1>
+                <p>Tipo: <span id="tiger-type">Tigre Blanco Clásico</span></p>
+                <p>Ojos: <span id="tiger-eyes">Azules</span></p>
+                <p>Personalidad: <span id="tiger-personality">Juguetón</span></p>
+                <p>Nivel: <span id="level">1</span></p>
+                <p>Hambre: <span id="hunger">100</span>%</p>
+                <p>Salud: <span id="health">100</span>%</p>
+                <p>Energía: <span id="energy">100</span>%</p>
+                <p>Felicidad: <span id="happiness">100</span>%</p>
+            </div>
+
+            <!-- Sección para nombrar al tigre -->
+            <div id="name-section">
+                <input type="text" id="name-input" placeholder="Nombra a tu tigre">
+                <button onclick="setTigerName()">Guardar Nombre</button>
+            </div>
+
+            <!-- Botones de interacción -->
+            <div id="interaction-buttons">
+                <button onclick="feedTiger()">Alimentar</button>
+                <button onclick="playWithTiger()">Jugar</button>
+                <button onclick="batheTiger()">Bañar</button>
+                <button onclick="sleepTiger()">Dormir</button>
+                <button onclick="swimTiger()">Nadar</button>
+                <button onclick="toiletTiger()">Ir al baño</button>
+            </div>
+
+            <!-- Selección de animaciones (desbloqueadas en nivel 2) -->
+            <div id="animation-section" style="display: none;">
+                <h3>Animaciones</h3>
+                <button onclick="sitAnimation()">Sentarse</button>
+                <button onclick="danceAnimation()">Bailar</button>
+                <button onclick="jumpAnimation()">Saltar</button>
+            </div>
+        </div>
+
+        <!-- Navegación entre pantallas -->
+        <div id="screen-navigation">
+            <button onclick="goToPorch()">Porche</button>
+            <button onclick="goToPool()">Piscina</button>
+            <button onclick="goToInterior()">Interior</button>
+        </
