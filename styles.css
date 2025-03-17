@@ -1,0 +1,330 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Fondo de la mansión blanca con piscina y porche */
+body {
+    overflow: hidden;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+#game-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center;
+    background-size: cover;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.5);
+    perspective: 1000px; /* Para efectos 3D */
+}
+
+/* Lienzo 3D */
+#game-canvas {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.3));
+}
+
+/* Interfaz de usuario principal */
+#ui {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2), inset 0 0 10px rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    transform: translateZ(20px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 10;
+}
+
+#ui:hover {
+    transform: translateZ(30px) scale(1.05);
+    opacity: 1;
+}
+
+#tiger-info {
+    margin-bottom: 20px;
+}
+
+#tiger-info h1 {
+    font-size: 24px;
+    color: #2c3e50;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+#tiger-info p {
+    font-size: 16px;
+    color: #34495e;
+    margin: 5px 0;
+    transition: color 0.3s ease;
+}
+
+#tiger-info p span {
+    font-weight: bold;
+    color: #2980b9;
+}
+
+#name-section {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#name-input {
+    flex: 1;
+    padding: 8px;
+    border: 2px solid #3498db;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#name-input:focus {
+    border-color: #2980b9;
+    box-shadow: 0 0 10px rgba(41, 128, 185, 0.5);
+    outline: none;
+}
+
+/* Botones de interacción */
+#interaction-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px;
+    font-size: 14px;
+    color: #fff;
+    background: linear-gradient(45deg, #3498db, #2980b9);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+    position: relative;
+    overflow: hidden;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+button:hover::before {
+    width: 200px;
+    height: 200px;
+}
+
+/* Sección de animaciones */
+#animation-section {
+    margin-top: 20px;
+}
+
+#animation-section h3 {
+    font-size: 18px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#animation-section button {
+    background: linear-gradient(45deg, #e74c3c, #c0392b);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+}
+
+#animation-section button:hover {
+    box-shadow: 0 8px 20px rgba(231, 76, 60, 0.6);
+}
+
+/* Navegación entre pantallas */
+#screen-navigation {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    z-index: 10;
+}
+
+#screen-navigation button {
+    background: linear-gradient(45deg, #2ecc71, #27ae60);
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+}
+
+#screen-navigation button:hover {
+    box-shadow: 0 8px 20px rgba(46, 204, 113, 0.6);
+}
+
+/* Pantallas específicas */
+.screen {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotateX(10deg);
+    width: 400px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(15px);
+    z-index: 15;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.screen.active {
+    transform: translate(-50%, -50%) rotateX(0deg);
+    opacity: 1;
+}
+
+.screen h2 {
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.screen p {
+    font-size: 16px;
+    color: #34495e;
+}
+
+/* Mensajes en pantalla */
+#message-box {
+    position: absolute;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px 25px;
+    background: rgba(52, 152, 219, 0.9);
+    color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 10;
+    animation: fadeInOut 4s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    100% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+}
+
+/* Modal de introducción */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    animation: fadeIn 0.5s ease;
+}
+
+.modal-content {
+    width: 500px;
+    padding: 30px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    text-align: center;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.modal-content h2 {
+    font-size: 28px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.modal-content p {
+    font-size: 16px;
+    color: #34495e;
+    margin-bottom: 20px;
+}
+
+.modal-content button {
+    background: linear-gradient(45deg, #f1c40f, #e67e22);
+    padding: 12px 25px;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(241, 196, 15, 0.4);
+}
+
+.modal-content button:hover {
+    box-shadow: 0 8px 20px rgba(241, 196, 15, 0.6);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #ui {
+        width: 250px;
+        padding: 15px;
+        top: 10px;
+        left: 10px;
+    }
+
+    #interaction-buttons {
+        grid-template-columns: 1fr;
+    }
+
+    .screen {
+        width: 300px;
+    }
+
+    #screen-navigation {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
